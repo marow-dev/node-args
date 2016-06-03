@@ -25,7 +25,7 @@
     ],
     "author" : {
         "name" : "Marcin Owczarczyk",
-        "email" : "marow.dev@gmail.com",
+        "email" : "marow.dev@gmail.com"
     },
     "license" : "MIT/X11",
     "engine" : {
