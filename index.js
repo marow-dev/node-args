@@ -1,6 +1,6 @@
 var args = process.argv.slice(2);
 
-var argv = (function () {
+var argvalues = (function () {
     var list = {},
         listDefault = {};
 
@@ -61,12 +61,12 @@ function parseArg(arg) {
 
     arg = arg.split('=');
     if (arg.length === 1) {
-        argv.add(arg[0], true);
+        argvalues.add(arg[0], true);
     } else {
-        argv.add(arg[0], arg[1]);
+        argvalues.add(arg[0], arg[1]);
     }
 }
 
 args.forEach(parseArg);
 
-module.exports = argv;
+module.exports = argvalues;
