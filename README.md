@@ -1,5 +1,6 @@
 # node-args
 Light-weight command line arguments parser. No dependencies required.
+Available as npm module 'margs'
 ## Usage
 Module return object with methods:
 ### get
