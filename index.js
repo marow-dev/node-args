@@ -1,6 +1,6 @@
 var args = process.argv.slice(2);
 
-var argv = (function() {
+var argv = (function () {
     var list = {},
         listDefault = {};
 
@@ -32,7 +32,7 @@ var argv = (function() {
 
     function all() {
         var i;
-            keys = [];
+        keys = [];
         for (i in list) {
             if (list.hasOwnProperty(i)) {
                 keys.push(i);
@@ -46,7 +46,7 @@ var argv = (function() {
         get: get,
         all: all,
         setDefault: setDefault
-    }
+    };
 }());
 
 
@@ -60,7 +60,7 @@ function parseArg(arg) {
     }
 
     arg = arg.split('=');
-    if (arg.length == 1) {
+    if (arg.length === 1) {
         argv.add(arg[0], true);
     } else {
         argv.add(arg[0], arg[1]);
