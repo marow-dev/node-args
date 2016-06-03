@@ -1,5 +1,5 @@
 {
-    "name" : "args",
+    "name" : "margs",
     "version" : "0.1.1",
     "description" : "Light-weight command line arguments parser. No dependencies required.",
     "main" : "./index.js",
