@@ -3,10 +3,19 @@ var args = process.argv.slice(2);
 
 var argvalues = (function () {
     var list = {},
-        listDefault = {};
+        listDefault = {},
+        options = [];
 
-    function add(key, value) {
-        list[key] = value;
+    function add(key, val) {
+        list[key] = val;
+    }
+
+    function addOption(val) {
+        options.push(val);
+    }
+
+    function getOptions() {
+        return options;
     }
 
     function get(key) {
@@ -32,8 +41,8 @@ var argvalues = (function () {
     }
 
     function all() {
-        var i;
-        keys = [];
+        var i,
+            keys = [];
         for (i in list) {
             if (list.hasOwnProperty(i)) {
                 keys.push(i);
@@ -44,6 +53,8 @@ var argvalues = (function () {
 
     return {
         add: add,
+        addOption: addOption,
+        getOptions: getOptions,
         get: get,
         all: all,
         setDefault: setDefault
@@ -51,23 +62,34 @@ var argvalues = (function () {
 }());
 
 
-function parseArg(arg) {
-    if (arg.charAt(0) === '-') {
-        if (arg.charAt(1) === '-') {
-            arg = arg.slice(2);
+(function () {
+    var prevArg = false,
+        isArg = false;
+    function parseArg(arg) {
+        isArg = false;
+        if (arg.charAt(0) === '-') {
+            arg = arg.slice(arg.charAt(1) === '-' ? 2 : 1);
+            isArg = true;
+        } else if (prevArg.length) {
+            argvalues.add(prevArg, arg);
+            prevArg = '';
+            return;
+        }
+
+        arg = arg.split('=');
+        if (arg.length > 1) {
+            argvalues.add(arg[0], arg[1]);
+            prevArg = '';
         } else {
-            arg = arg.slice(1);
+            if (isArg) {
+                argvalues.add(arg[0], true);
+                prevArg = arg[0];
+            } else {
+                argvalues.addOption(arg[0]);
+            }
         }
     }
-
-    arg = arg.split('=');
-    if (arg.length === 1) {
-        argvalues.add(arg[0], true);
-    } else {
-        argvalues.add(arg[0], arg[1]);
-    }
-}
-
-args.forEach(parseArg);
+    args.forEach(parseArg);
+} ());
 
 module.exports = argvalues;
